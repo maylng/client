@@ -79,7 +79,7 @@ model ThreadFolder {
   id       String @id @default(cuid())
   threadId String
   folderId String
-
+`
   thread Thread @relation(fields: [threadId], references: [id])
   folder Folder @relation(fields: [folderId], references: [id])
 }
