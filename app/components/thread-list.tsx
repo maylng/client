@@ -24,9 +24,9 @@ type User = {
 type Email = {
     id: string;
     subject: string | null;
-    threadId: number | null;
-    senderId: number | null;
-    recipientId: number | null;
+    threadId: string | null;
+    senderId: string | null;
+    recipientId: string | null;
     body: string | null;
     sentDate: Date | null;
 } & {
@@ -34,7 +34,7 @@ type Email = {
 };
 
 type ThreadWithEmails = {
-  id: number;
+  id: string;
   subject: string | null;
   lastActivityDate: Date | null;
   emails: Email[];
@@ -81,7 +81,7 @@ export function ThreadHeader({
 }
 
 export function ThreadList({ folderName, threads }: ThreadListProps) {
-  const [hoveredThread, setHoveredThread] = useState<number | null>(null);
+  const [hoveredThread, setHoveredThread] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -97,7 +97,7 @@ export function ThreadList({ folderName, threads }: ThreadListProps) {
     };
   }, []);
 
-  const handleMouseEnter = (threadId: number) => {
+  const handleMouseEnter = (threadId: string) => {
     if (!isMobile) {
       setHoveredThread(threadId);
     }

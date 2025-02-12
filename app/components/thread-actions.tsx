@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/tooltip';
 
 interface ThreadActionsProps {
-  threadId: number;
+  threadId: string;
 }
 
 export function ThreadActions({ threadId }: ThreadActionsProps) {
