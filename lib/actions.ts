@@ -144,8 +144,8 @@ export async function moveThreadToDone(_: any, formData: FormData) {
             }
         })
 
-        revalidatePath('/f/[name]');
-        revalidatePath('/f/[name]/[id]');
+        revalidatePath('/f/[name]', "page");
+        revalidatePath('/f/[name]/[id]', "page");
 
         return { success: true, error: null };
     } catch (error) {

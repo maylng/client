@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className="flex h-screen">
         <main className="flex-grow overflow-hidden">{children}</main>
         <Suspense fallback={<RightSidebarSkeleton />}>
-          <RightSidebar userId={""} />
+          <RightSidebar userId={"cm72g6ytb0000i9dghzndx8o0"} />
         </Suspense>
         <Toaster closeButton />
         <WelcomeToast />
