@@ -1,0 +1,85 @@
+// schema.prisma
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String  @id @default(cuid())
+  clerkId   String  @unique
+  firstName String
+  lastName  String
+  email     String
+  jobTitle  String?
+  company   String?
+  location  String?
+  twitter   String?
+  linkedin  String?
+  github    String?
+  avatarUrl String?
+
+  sentEmails     Email[]      @relation("sender")
+  receivedEmails Email[]      @relation("recipient")
+  userFolders    UserFolder[]
+
+  @@unique([email], name: "email_idx")
+}
+
+model Thread {
+  id               String   @id @default(cuid())
+  subject          String?
+  lastActivityDate DateTime @default(now())
+
+  emails        Email[]
+  threadFolders ThreadFolder[]
+}
+
+model Email {
+  id          String   @id @default(cuid())
+  threadId    String
+  senderId    String
+  recipientId String
+  subject     String?
+  body        String?
+  sentDate    DateTime @default(now())
+
+  thread    Thread @relation(fields: [threadId], references: [id])
+  sender    User   @relation("sender", fields: [senderId], references: [id])
+  recipient User   @relation("recipient", fields: [recipientId], references: [id])
+
+  @@index([threadId], name: "thread_id_idx")
+  @@index([senderId], name: "sender_id_idx")
+  @@index([recipientId], name: "recipient_id_idx")
+  @@index([sentDate], name: "sent_date_idx")
+}
+
+model Folder {
+  id   String @id @default(cuid())
+  name String
+
+  userFolders   UserFolder[]
+  threadFolders ThreadFolder[]
+}
+
+model UserFolder {
+  id       String @id @default(cuid())
+  userId   String
+  folderId String
+
+  user   User   @relation(fields: [userId], references: [id])
+  folder Folder @relation(fields: [folderId], references: [id])
+}
+
+model ThreadFolder {
+  id       String @id @default(cuid())
+  threadId String
+  folderId String
+
+  thread Thread @relation(fields: [threadId], references: [id])
+  folder Folder @relation(fields: [folderId], references: [id])
+}
