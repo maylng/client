@@ -240,7 +240,7 @@ export async function getAllEmailAddresses() {
 export async function getUserProfile(userId: string) {
   // Get the user's profile details.
   const user = await prisma.user.findUnique({
-    where: { id: userId },
+    where: { clerkId: userId },
     select: {
       id: true,
       firstName: true,

@@ -5,6 +5,7 @@ import RightSidebar  from './components/right-sidebar';
 import { WelcomeToast } from './components/welcome-toast';
 import { Toaster } from 'sonner';
 import { Suspense } from 'react';
+import { currentUser } from '@clerk/nextjs/server';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -13,17 +14,23 @@ export const metadata: Metadata = {
   description: 'An email client template using the Next.js App Router.',
 };
 
-export default function RootLayout({
+
+export default async function AppLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+
+  const user = await currentUser()
+      if (!user) {
+          return null
+      }
   return (
     <div lang="en" className={`bg-white text-gray-800 ${inter.className}`}>
       <div className="flex h-screen">
         <main className="flex-grow overflow-hidden">{children}</main>
         <Suspense fallback={<RightSidebarSkeleton />}>
-          <RightSidebar userId={"cm72g6ytb0000i9dghzndx8o0"} />
+          <RightSidebar userId={user.id} />
         </Suspense>
         <Toaster closeButton />
         <WelcomeToast />
