@@ -95,7 +95,7 @@ export async function sendEmailAction(_: any, formData: FormData) {
             return { error: error.errors[0].message, previous: rawFormData };
         }
         return {
-            error: 'Failed to send email. Please try again.',
+            error: `Failed to send email. Please try again. ${error}`,
             previous: rawFormData,
         };
     }

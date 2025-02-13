@@ -1,4 +1,4 @@
-import { ThreadHeader, ThreadList } from '@/app/components/thread-list';
+import { ThreadHeader, ThreadList } from '@/app/(protected)/components/thread-list';
 import { getThreadsForFolder } from '@/lib/queries';
 import { Suspense } from 'react';
 

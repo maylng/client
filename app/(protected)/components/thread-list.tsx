@@ -5,12 +5,12 @@ import Link from 'next/link';
 import { PenSquare, Search } from 'lucide-react';
 import { NavMenu } from './menu';
 import { formatEmailString } from '@/lib/utils';
-import { ThreadActions } from '@/app/components/thread-actions';
+import { ThreadActions } from '@/app/(protected)/components/thread-actions';
 
 type User = {
     id: string;
-    firstName: string | null;
-    lastName: string | null;
+    firstName: string
+    lastName: string
     email: string;
     jobTitle: string | null;
     company: string | null;

@@ -1,4 +1,4 @@
-import { LeftSidebar } from '@/app/components/left-sidebar';
+import { LeftSidebar } from '@/app/(protected)/components/left-sidebar';
 
 export default function LoadingThreadSkeleton() {
   return (

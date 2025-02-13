@@ -1,7 +1,7 @@
-import { LeftSidebar } from '@/app/components/left-sidebar';
+import { LeftSidebar } from '@/app/(protected)/components/left-sidebar';
 import { getEmailsForThread } from '@/lib/queries';
 import { notFound } from 'next/navigation';
-import { ThreadActions } from '@/app/components/thread-actions';
+import { ThreadActions } from '@/app/(protected)/components/thread-actions';
 
 export default async function EmailPage({
   params,

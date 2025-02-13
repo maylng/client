@@ -4,7 +4,7 @@ import { Suspense, useActionState } from 'react';
 import { Paperclip, Trash2 } from 'lucide-react';
 import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { LeftSidebar } from '@/app/components/left-sidebar';
+import { LeftSidebar } from '@/app/(protected)/components/left-sidebar';
 import { sendEmailAction } from '@/lib/actions';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
