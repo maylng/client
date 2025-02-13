@@ -26,6 +26,16 @@ export function RegisterForm({ className, ...props }: React.ComponentProps<"div"
                 <h1 className="text-2xl font-bold">Nice to meet you</h1>
                 <p className="text-balance text-muted-foreground">Create an Inbox AI account</p>
               </div>
+              <div className="flex gap-2">
+                <div>
+                  <Label htmlFor="email">First Name</Label>
+                  <Input id="fname" type="text" placeholder="John" required />
+                </div>
+                <div>
+                  <Label htmlFor="fname">Last Name</Label>
+                  <Input id="lname" type="text" placeholder="Doe" required />
+                </div>
+              </div>
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input id="email" type="email" placeholder="m@example.com" required />
@@ -33,9 +43,6 @@ export function RegisterForm({ className, ...props }: React.ComponentProps<"div"
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  <a href="#" className="ml-auto text-sm underline-offset-2 hover:underline">
-                    Forgot your password?
-                  </a>
                 </div>
                 <Input id="password" type="password" required />
               </div>
