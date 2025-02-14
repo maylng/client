@@ -37,6 +37,7 @@ export async function getFoldersWithThreadCount(): Promise<{
 // 2. getThreadsForFolder
 //
 export async function getThreadsForFolder(folderName: string) {
+  console.log('Retreiving threads for:', folderName);
   const originalFolderName = toTitleCase(decodeURIComponent(folderName));
 
   // Find threads that belong to the given folder.
@@ -67,6 +68,7 @@ export async function getThreadsForFolder(folderName: string) {
     orderBy: { lastActivityDate: 'desc' },
   });
 
+  console.log(threadsWithEmails)
   return threadsWithEmails;
 }
 

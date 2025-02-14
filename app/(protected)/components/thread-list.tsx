@@ -2,25 +2,26 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { PenSquare, Search } from 'lucide-react';
+import { PenSquare, Search, PlusCircle, Inbox } from 'lucide-react';
 import { NavMenu } from './menu';
 import { formatEmailString } from '@/lib/utils';
 import { ThreadActions } from '@/app/(protected)/components/thread-actions';
+import { Button } from '@/components/ui/button';
 
-type Agent={
-  id: string,
-  name: string,
-  email: string
-} 
+type Agent = {
+  id: string;
+  name: string;
+  email: string;
+};
 
 type Email = {
-    id: string;
-    subject: string | null;
-    threadId: string | null;
-    senderId: string | null;
-    recipientId: string | null;
-    body: string | null;
-    sentDate: Date | null;
+  id: string;
+  subject: string | null;
+  threadId: string | null;
+  senderId: string | null;
+  recipientId: string | null;
+  body: string | null;
+  sentDate: Date | null;
 } & {
   sender: Pick<Agent, 'id' | 'name' | 'email'>;
 };
@@ -101,6 +102,10 @@ export function ThreadList({ folderName, threads }: ThreadListProps) {
     }
   };
 
+  if (threads.length === 0) {
+    return <NoThreads folderName={folderName} />;
+  }
+
   return (
     <div className="flex-grow border-r border-gray-200 overflow-hidden">
       <ThreadHeader folderName={folderName} count={threads.length} />
@@ -147,6 +152,36 @@ export function ThreadList({ folderName, threads }: ThreadListProps) {
             </Link>
           );
         })}
+      </div>
+    </div>
+  );
+}
+
+interface NoThreadsProps {
+  folderName: string;
+}
+
+export function NoThreads({ folderName }: NoThreadsProps) {
+  return (
+    <div className="flex-grow border-r border-gray-200 overflow-hidden">
+      <ThreadHeader folderName={folderName} count={0} />
+      <div className="flex flex-col items-center justify-center w-full h-full p-8 text-center">
+        <div className="bg-gray-100 rounded-full p-6 mb-6">
+          <Inbox className="w-12 h-12 text-gray-400" />
+        </div>
+        <h2 className="text-2xl font-semibold text-gray-700 mb-2">
+          No threads in {folderName}
+        </h2>
+        <p className="text-gray-500 mb-6 max-w-md">
+          Looks like this folder is empty. Start a new thread or move existing
+          ones here.
+        </p>
+        <Link href={`/f/${folderName}/new`} passHref>
+          <Button className="flex items-center">
+            <PlusCircle className="mr-2 h-4 w-4" />
+            Create New Thread
+          </Button>
+        </Link>
       </div>
     </div>
   );
