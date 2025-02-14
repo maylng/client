@@ -98,6 +98,9 @@ const features = [
 function Features() {
   return (
     <div className="container mx-4 my-12">
+      <div className="w-full flex items-center justify-start">
+        <span className="inline-block text-transparent bg-clip-text pr-1 bg-gradient-to-r from-neutral-900 to-neutral-700/80  dark:from-white pb-4 dark:to-white/80 text-5xl font-bold tracking-tighter">Featuring</span>
+      </div>
         <BentoGrid className="lg:grid-rows-3">
         {features.map((feature) => (
             <BentoCard key={feature.name} {...feature} />

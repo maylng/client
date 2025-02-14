@@ -118,7 +118,6 @@ export async function searchThreads(search: string | undefined) {
     orderBy: { lastActivityDate: 'desc' },
   });
 
-  // Map the results to a structure similar to the Drizzle implementation.
   const results = threads.map((thread) => {
     const folderName = thread.threadFolders[0]?.folder.name || null;
     const latestEmail = thread.emails[0]
