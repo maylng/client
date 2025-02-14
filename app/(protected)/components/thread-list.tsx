@@ -7,19 +7,11 @@ import { NavMenu } from './menu';
 import { formatEmailString } from '@/lib/utils';
 import { ThreadActions } from '@/app/(protected)/components/thread-actions';
 
-type User = {
-    id: string;
-    firstName: string
-    lastName: string
-    email: string;
-    jobTitle: string | null;
-    company: string | null;
-    location: string | null;
-    twitter: string | null;
-    linkedin: string | null;
-    github: string | null;
-    avatarUrl: string | null;
-}
+type Agent={
+  id: string,
+  name: string,
+  email: string
+} 
 
 type Email = {
     id: string;
@@ -30,7 +22,7 @@ type Email = {
     body: string | null;
     sentDate: Date | null;
 } & {
-  sender: Pick<User, 'id' | 'firstName' | 'lastName' | 'email'>;
+  sender: Pick<Agent, 'id' | 'name' | 'email'>;
 };
 
 type ThreadWithEmails = {

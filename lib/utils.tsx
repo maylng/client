@@ -6,19 +6,18 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatEmailString(
-  userEmail: {
-    firstName: string | null;
-    lastName: string | null;
+  agentEmail: {
+    name: string
     email: string;
   },
   opts: { includeFullEmail: boolean } = { includeFullEmail: false },
 ) {
-  if (userEmail.firstName && userEmail.lastName) {
-    return `${userEmail.firstName} ${userEmail.lastName} ${
-      opts.includeFullEmail ? `<${userEmail.email}>` : ''
+  if (agentEmail.name) {
+    return `${agentEmail.name} ${
+      opts.includeFullEmail ? `<${agentEmail.email}>` : ''
     }`;
   }
-  return userEmail.email;
+  return agentEmail.email;
 }
 
 export function toTitleCase(str: string) {

@@ -23,11 +23,19 @@ model User {
   github    String?
   avatarUrl String?
 
-  sentEmails     Email[]      @relation("sender")
-  receivedEmails Email[]      @relation("recipient")
-  userFolders    UserFolder[]
+  agents Agent[]
+}
 
-  @@unique([email], name: "email_idx")
+model Agent {
+  id     String @id @default(cuid())
+  name   String
+  email  String @unique
+  userId String
+
+  sentEmails     Email[]       @relation("Sender")
+  receivedEmails Email[]       @relation("Receiver")
+  agentFolders   AgentFolder[]
+  user           User          @relation(fields: [userId], references: [id])
 }
 
 model Thread {
@@ -49,8 +57,8 @@ model Email {
   sentDate    DateTime @default(now())
 
   thread    Thread @relation(fields: [threadId], references: [id])
-  sender    User   @relation("sender", fields: [senderId], references: [id])
-  recipient User   @relation("recipient", fields: [recipientId], references: [id])
+  sender    Agent  @relation(fields: [senderId], references: [id], name: "Sender")
+  recipient Agent  @relation(fields: [recipientId], references: [id], name: "Receiver")
 
   @@index([threadId], name: "thread_id_idx")
   @@index([senderId], name: "sender_id_idx")
@@ -62,17 +70,16 @@ model Folder {
   id   String @id @default(cuid())
   name String
 
-  userFolders   UserFolder[]
+  agentFolders  AgentFolder[]
   threadFolders ThreadFolder[]
 }
 
-model UserFolder {
+model AgentFolder {
   id       String @id @default(cuid())
-  userId   String
+  agentId  String
   folderId String
-
-  user   User   @relation(fields: [userId], references: [id])
-  folder Folder @relation(fields: [folderId], references: [id])
+  agent    Agent  @relation(fields: [agentId], references: [id])
+  folder   Folder @relation(fields: [folderId], references: [id])
 }
 
 model ThreadFolder {

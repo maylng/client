@@ -1,9 +1,6 @@
 // queries.ts
-
-import { PrismaClient } from '@prisma/client';
+import { prisma } from './prisma';
 import { toTitleCase } from './utils';
-
-const prisma = new PrismaClient();
 
 //
 // 1. getFoldersWithThreadCount
@@ -60,8 +57,7 @@ export async function getThreadsForFolder(folderName: string) {
           sender: {
             select: {
               id: true,
-              firstName: true,
-              lastName: true,
+              name: true,
               email: true,
             },
           },
@@ -90,8 +86,7 @@ export async function searchThreads(search: string | undefined) {
             some: {
               OR: [
                 { body: { contains: search, mode: 'insensitive' } },
-                { sender: { firstName: { contains: search, mode: 'insensitive' } } },
-                { sender: { lastName: { contains: search, mode: 'insensitive' } } },
+                { sender: { name: { contains: search, mode: 'insensitive' } } },
                 { sender: { email: { contains: search, mode: 'insensitive' } } },
               ],
             },
@@ -107,8 +102,7 @@ export async function searchThreads(search: string | undefined) {
         include: {
           sender: {
             select: {
-              firstName: true,
-              lastName: true,
+              name: true,
               email: true,
             },
           },
@@ -165,7 +159,7 @@ export async function getThreadInFolder(folderName: string, threadId: string) {
         orderBy: { sentDate: 'desc' },
         include: {
           sender: {
-            select: { firstName: true, lastName: true, email: true },
+            select: { name: true, email: true },
           },
         },
         take: 1,
@@ -180,8 +174,7 @@ export async function getThreadInFolder(folderName: string, threadId: string) {
     id: thread.id,
     subject: thread.subject,
     lastActivityDate: thread.lastActivityDate,
-    senderFirstName: thread.emails[0]?.sender.firstName,
-    senderLastName: thread.emails[0]?.sender.lastName,
+    senderFirstName: thread.emails[0]?.sender.name,
     senderEmail: thread.emails[0]?.sender.email,
   };
 }
@@ -198,7 +191,7 @@ export async function getEmailsForThread(threadId: string) {
         orderBy: { sentDate: 'asc' },
         include: {
           sender: {
-            select: { id: true, firstName: true, lastName: true },
+            select: { id: true, name: true },
           },
         },
       },

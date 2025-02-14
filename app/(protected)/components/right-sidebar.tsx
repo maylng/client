@@ -8,7 +8,7 @@ async function RightSidebar({ userId }: { userId: string }) {
     return null
   }
 
-  return <RightSidebarContent user={user} />
+  return <RightSidebarContent user={user}   />
 }
 
 export default RightSidebar

@@ -36,7 +36,7 @@ export default async function EmailPage({
               <div key={email.id} className="bg-gray-50 py-4 px-6 rounded-lg">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-2">
                   <div className="font-semibold">
-                    {email.sender.firstName} {email.sender.lastName} to{' '}
+                    {email.sender.name} to{' '}
                     {email.recipientId === thread.emails[0].sender.id
                       ? 'Me'
                       : 'All'}

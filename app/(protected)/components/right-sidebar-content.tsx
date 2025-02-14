@@ -2,7 +2,7 @@
 "use client"
 
 import type React from "react"
-import { Linkedin, Twitter, Github, Mail, ExternalLink } from "lucide-react"
+import { Linkedin, Twitter, Github, Mail, ExternalLink, UserRoundIcon } from "lucide-react"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
@@ -15,20 +15,24 @@ function RightSidebarContent({ user }: { user: any }) {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="hidden sm:flex flex-shrink-0 w-[320px] p-8 overflow-auto bg-white dark:bg-neutral-900 border-l border-neutral-200 dark:border-neutral-800"
     >
-      <div className="w-full space-y-8">
+      <div className="w-full space-y-8" suppressHydrationWarning>
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
           className="text-center"
         >
-          <Image
-            src={user.avatarUrl || "/placeholder.svg?height=80&width=80"}
-            alt={`${user.firstName} ${user.lastName}`}
-            className="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-neutral-200 dark:border-neutral-700"
-            width={80}
-            height={80}
-          />
+          {user.avatarUrl ? (
+            <Image
+              src={user.avatarUrl}
+              alt={`${user.firstName} ${user.lastName}`}
+              className="w-12 h-12 rounded-full mx-auto mb-4 border-2 border-neutral-200 dark:border-neutral-700"
+              width={80}
+              height={80}
+            />
+          ) : (
+            <UserRoundIcon className="w-12 h-12 rounded-full mx-auto mb-4 border-2 border-neutral-200 dark:border-neutral-700" />
+          )} 
           <h2 className="text-2xl font-bold text-neutral-800 dark:text-neutral-200">
             {`${user.firstName} ${user.lastName}`}
           </h2>
