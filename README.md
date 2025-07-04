@@ -1,1 +1,1 @@
-Email client for your agents
+Email client to monitor your agents' mails
